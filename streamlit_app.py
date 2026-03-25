@@ -1,6 +1,6 @@
 import streamlit as st
 
-intro = st.Page("intro.py", title="NPC Playground", icon=":/material/description:", default= True)
+intro = st.Page("intro.py", title="NPC Playground", icon=":material/description:", default= True)
 charizard = st.Page("Pokemon_Characters/charizard.py", title="Charizard", icon="🔥")
 eevee = st.Page("Pokemon_Characters/eevee.py", title="Eevee", icon="🐕")
 mewtwo = st.Page("Pokemon_Characters/mewtwo.py", title="Mewtwo", icon="🔮")
