@@ -5,7 +5,7 @@ from openai import OpenAI
 # CONFIGURE YOUR NPC HERE
 # ============================================
 NPC_CONFIG = {
-    "name": "Clint",
+    "name": "Eldric the Wise",
     "portrait": "🧙‍♂️",
     "role": "Ancient Wizard",
     "personality": "Speaks in riddles and ancient proverbs. Wise but cryptic. Often references forgotten lore.",
@@ -77,7 +77,7 @@ st.divider()
 # Display chat history
 for msg in st.session_state.messages:
     if msg["role"] == "user":
-        with st.chat_message("user", avatar="🧑‍🎮"):
+        with st.chat_message("user"):
             st.write(msg["content"])
     else:
         with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
@@ -92,7 +92,7 @@ if not st.session_state.messages:
 # Chat input
 if prompt := st.chat_input(f"Enter a message to {NPC_CONFIG['name']}"):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user", avatar="🧑‍🎮"):
+    with st.chat_message("user"):
         st.write(prompt)
     
     with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
