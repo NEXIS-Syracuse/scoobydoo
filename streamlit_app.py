@@ -8,8 +8,9 @@ lucario = st.Page("Pokemon_Characters/lucario.py", title ="Lucario", icon="🔵"
 clint = st.Page("Stardew_Characters/clint.py", title ="Clint", icon="⚒️")
 maru = st.Page("Stardew_Characters/maru.py", title ="Maru", icon="🩺")
 haley = st.Page("Stardew_Characters/haley.py", title ="Haley", icon="📸")
+kirby = st.Page("SuperSmash_Characters/Kirby.py", title = "Kirby", icon ="🔵")
 
-pg = st.navigation([intro, charizard, eevee, mewtwo, lucario, clint, maru, haley])
+pg = st.navigation([intro, charizard, eevee, mewtwo, lucario, clint, maru, haley, kirby])
 
 st.set_page_config(page_title="NPC Playground", page_icon="🎭")
 
