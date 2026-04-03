@@ -5,7 +5,7 @@ from openai import OpenAI
 # CONFIGURE YOUR NPC HERE
 # ============================================
 NPC_CONFIG = {
-    "name": "Eldric the Wise",
+    "name": "Clint",
     "portrait": "🧙‍♂️",
     "role": "Ancient Wizard",
     "personality": "Speaks in riddles and ancient proverbs. Wise but cryptic. Often references forgotten lore.",
@@ -82,24 +82,24 @@ for msg in st.session_state.messages:
     else:
         with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
             st.write(msg["content"])
+
+# Initial greeting
+if not st.session_state.messages:
+    with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
+        st.write(NPC_CONFIG["greeting"])
+    st.session_state.messages.append({"role": "assistant", "content": NPC_CONFIG["greeting"]})
+
+# Chat input
+if prompt := st.chat_input(f"Enter a message to {NPC_CONFIG['name']}"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user", avatar="🧑‍🎮"):
+        st.write(prompt)
     
-    # Initial greeting
-    if not st.session_state.messages:
-        with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
-            st.write(NPC_CONFIG["greeting"])
-        st.session_state.messages.append({"role": "assistant", "content": NPC_CONFIG["greeting"]})
-    
-    # Chat input
-    if prompt := st.chat_input("What do you say?"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user", avatar="🧑‍🎮"):
-            st.write(prompt)
-        
-        with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
-            with st.spinner(f"{NPC_CONFIG['name']} is thinking..."):
-                try:
-                    response = get_npc_response(client, NPC_CONFIG, st.session_state.messages)
-                    st.write(response)
-                    st.session_state.messages.append({"role": "assistant", "content": response})
-                except Exception as e:
-                    st.error(f"Error: {str(e)}")
+    with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
+        with st.spinner(f"{NPC_CONFIG['name']} is thinking..."):
+            try:
+                response = get_npc_response(client, NPC_CONFIG, st.session_state.messages)
+                st.write(response)
+                st.session_state.messages.append({"role": "assistant", "content": response})
+            except Exception as e:
+                st.error(f"Error: {str(e)}")
