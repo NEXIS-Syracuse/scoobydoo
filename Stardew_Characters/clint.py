@@ -5,7 +5,7 @@ from openai import OpenAI
 # CONFIGURE YOUR NPC HERE
 # ============================================
 NPC_CONFIG = {
-    "name": "Clint",
+    "name": "Eldric the Wise",
     "portrait": "🧙‍♂️",
     "role": "Ancient Wizard",
     "personality": "Speaks in riddles and ancient proverbs. Wise but cryptic. Often references forgotten lore.",
@@ -51,13 +51,11 @@ st.set_page_config(
     layout="centered"
 )
 
+# Initialize OpenAI client with secrets
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
 # Sidebar
 with st.sidebar:
-    st.header("⚙️ Settings")
-    api_key = st.text_input("OpenAI API Key", type="password")
-    
-    st.divider()
-    
     if st.button("🔄 Reset Conversation", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
@@ -76,20 +74,14 @@ with col2:
 
 st.divider()
 
-# Main chat
-if not api_key:
-    st.info("👈 Enter your OpenAI API key in the sidebar to begin")
-else:
-    client = OpenAI(api_key=api_key)
-    
-    # Display chat history
-    for msg in st.session_state.messages:
-        if msg["role"] == "user":
-            with st.chat_message("user", avatar="🧑‍🎮"):
-                st.write(msg["content"])
-        else:
-            with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
-                st.write(msg["content"])
+# Display chat history
+for msg in st.session_state.messages:
+    if msg["role"] == "user":
+        with st.chat_message("user", avatar="🧑‍🎮"):
+            st.write(msg["content"])
+    else:
+        with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
+            st.write(msg["content"])
     
     # Initial greeting
     if not st.session_state.messages:
