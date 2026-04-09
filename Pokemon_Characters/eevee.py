@@ -6,7 +6,7 @@ from openai import OpenAI
 # ============================================
 NPC_CONFIG = {
     "name": "Eevee",
-    "portrait": "pokemon-eevee-eevee.gif",
+    "portrait": "./Pokemon_Characters/pokemon-eevee-eevee.gif",
     "description": """Small normal type pokemon that looks to be a mix of a dog and fox. It has brown fur and a bushy tail""",
     "personality": """Gentle, happy, and affectionate""",
     "ability": """Adaptability (boosting same-type moves) and Run Away""",
