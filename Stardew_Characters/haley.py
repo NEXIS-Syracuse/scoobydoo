@@ -54,15 +54,16 @@ st.set_page_config(
 # Initialize OpenAI client with secrets
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
+# Initialize session state
+npc_key = f"messages_{NPC_CONFIG['name']}"
+if npc_key not in st.session_state:
+    st.session_state[npc_key] = []
+
 # Sidebar
 with st.sidebar:
     if st.button("🔄 Reset Conversation", use_container_width=True):
-        st.session_state.messages = []
+        st.session_state[npc_key] = []
         st.rerun()
-
-# Initialize session state
-if "messages" not in st.session_state:
-    st.session_state.messages = []
 
 # Header
 col1, col2 = st.columns([1, 5])
@@ -75,7 +76,7 @@ with col2:
 st.divider()
 
 # Display chat history
-for msg in st.session_state.messages:
+for msg in st.session_state[npc_key]:
     if msg["role"] == "user":
         with st.chat_message("user"):
             st.write(msg["content"])
@@ -84,14 +85,14 @@ for msg in st.session_state.messages:
             st.write(msg["content"])
 
 # Initial greeting
-if not st.session_state.messages:
+if not st.session_state[npc_key]:
     with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
         st.write(NPC_CONFIG["greeting"])
-    st.session_state.messages.append({"role": "assistant", "content": NPC_CONFIG["greeting"]})
+    st.session_state[npc_key].append({"role": "assistant", "content": NPC_CONFIG["greeting"]})
 
 # Chat input
 if prompt := st.chat_input(f"Enter a message to {NPC_CONFIG['name']}"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state[npc_key].append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.write(prompt)
     
