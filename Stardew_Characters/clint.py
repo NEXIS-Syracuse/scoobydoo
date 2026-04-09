@@ -88,19 +88,19 @@ for msg in st.session_state[npc_key]:
 if not st.session_state[npc_key]:
     with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
         st.write(NPC_CONFIG["greeting"])
-    st.session_state.messages.append({"role": "assistant", "content": NPC_CONFIG["greeting"]})
+    st.session_state[npc_key].append({"role": "assistant", "content": NPC_CONFIG["greeting"]})
 
 # Chat input
 if prompt := st.chat_input(f"Enter a message to {NPC_CONFIG['name']}"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state[npc_key].append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.write(prompt)
     
     with st.chat_message("assistant", avatar=NPC_CONFIG["portrait"]):
         with st.spinner(f"{NPC_CONFIG['name']} is thinking..."):
             try:
-                response = get_npc_response(client, NPC_CONFIG, st.session_state.messages)
+                response = get_npc_response(client, NPC_CONFIG, st.session_state[npc_key])
                 st.write(response)
-                st.session_state.messages.append({"role": "assistant", "content": response})
+                st.session_state[npc_key].append({"role": "assistant", "content": response})
             except Exception as e:
                 st.error(f"Error: {str(e)}")
