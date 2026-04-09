@@ -1,41 +1,35 @@
 import streamlit as st
 from openai import OpenAI
 
+# Page config MUST be first Streamlit command
+st.set_page_config(
+    page_title="Eevee",
+    page_icon="🦊",
+    layout="centered"
+)
+
 # ============================================
 # CONFIGURE YOUR NPC HERE
 # ============================================
 NPC_CONFIG = {
     "name": "Eevee",
-    "portrait": "./Pokemon_Characters/pokemon-eevee-eevee.gif",
+    "portrait": "🦊",  # Emoji for chat avatar
+    "image": "./Pokemon_Characters/pokemon-eevee-eevee.gif",  # Image file path
+    "role": "Normal-Type Pokémon",
     "description": """Small normal type pokemon that looks to be a mix of a dog and fox. It has brown fur and a bushy tail""",
     "personality": """Gentle, happy, and affectionate""",
     "ability": """Adaptability (boosting same-type moves) and Run Away""",
     "speech_style": """Soft and sweet—uses lots of ellipses and gentle pauses. Often starts with happy little sounds like "Eevee!" or "Vee..." Speaks simply and warmly. Gets excited easily but then gets shy. Nuzzles up to people it trusts. Examples: "Eevee! Eev...vee!" / "Vee...? *tilts head curiously*" / "Eevee eev! *wags tail happily*" """,
     "greeting": "*perks up ears and tilts head* Eevee...? *sniffs curiously, then wags tail* Vee! Eevee eev! *nuzzles against your hand affectionately* ...Vee. *sits down and looks up at you with big brown eyes*"
 }
-
-portrait = NPC_CONFIG["portrait"]
-
-col1, col2 = st.columns([1, 4])
-with col1:
-    # Try to load image, fall back to emoji if it fails
-    try:
-        st.image(NPC_CONFIG["image"], width=100)
-    except:
-        st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
-with col2:
-    st.title(NPC_CONFIG["name"])
-    st.caption(NPC_CONFIG["role"])
-
-st.divider()
 # ============================================
 
 def build_system_prompt(npc):
-    return f"""You are {npc['name']}, a {npc['role']} in a fantasy world.
+    return f"""You are {npc['name']}, a {npc['description']} in the pokemon world.
 
 PERSONALITY: {npc['personality']}
 
-BACKSTORY: {npc['backstory']}
+ABILITY: {npc['ability']}
 
 SPEECH STYLE: {npc['speech_style']}
 
@@ -43,7 +37,6 @@ RULES:
 - Stay completely in character at all times
 - Never break the fourth wall or mention you're an AI
 - React naturally to what the player says
-- Share bits of your backstory when relevant
 - Have opinions, preferences, and occasional mood shifts
 - If asked about things outside your knowledge, respond as your character would
 - Keep responses conversational (2-4 sentences typically, longer for stories)
@@ -59,13 +52,6 @@ def get_npc_response(client, npc, messages):
     )
     return response.choices[0].message.content
 
-# Page config
-st.set_page_config(
-    page_title=NPC_CONFIG["name"],
-    page_icon=NPC_CONFIG["portrait"],
-    layout="centered"
-)
-
 # Initialize OpenAI client with secrets
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -80,10 +66,13 @@ with st.sidebar:
         st.session_state[npc_key] = []
         st.rerun()
 
-# Header
-col1, col2 = st.columns([1, 5])
+# Header with image
+col1, col2 = st.columns([1, 4])
 with col1:
-    st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
+    try:
+        st.image(NPC_CONFIG["image"], width=100)
+    except:
+        st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
 with col2:
     st.title(NPC_CONFIG["name"])
     st.caption(NPC_CONFIG["role"])
