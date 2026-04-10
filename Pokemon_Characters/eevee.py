@@ -14,7 +14,7 @@ st.set_page_config(
 NPC_CONFIG = {
     "name": "Eevee",
     "portrait": "🦊",  # Emoji for chat avatar
-    "image": "./Pokemon_Characters/pokemon-eevee-eevee.gif",  # Image file path
+    "image": "./Pokemon_Characters/eevee.png",  # Image file path
     "role": "Normal-Type Pokémon",
     "description": """Small normal type pokemon that looks to be a mix of a dog and fox. It has brown fur and a bushy tail""",
     "personality": """Gentle, happy, and affectionate""",
