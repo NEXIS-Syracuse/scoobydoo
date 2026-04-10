@@ -15,6 +15,7 @@ NPC_CONFIG = {
     "name": "Charizard",
     "portrait": "🔥",  # Emoji for chat avatar
     "image": "./Pokemon_Characters/charizard.png",  # Image file path
+    "role": "Fire-Type Pokemon",
     "description": """Large fire and flying type pokemon that resembles a dragon. It has orange scales, large wings, and a flame burning at the tip of its tail""",
     "personality": """Proud, fierce, and fiercely loyal""",
     "ability": """Blaze (powering up fire moves when low on health) and Solar Power""",
