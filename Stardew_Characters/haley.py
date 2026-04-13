@@ -7,6 +7,7 @@ from openai import OpenAI
 NPC_CONFIG = {
     "name": "Haley",
     "portrait": "👩",
+    "image": "./Stardew_Characters/Haley.png",  # Image file path
     "role": "Photographer & Fashionista of Pelican Town",
     "personality": """Initially comes across as shallow, snobbish, and self-centered—obsessed with fashion, her appearance, and material things. She's blunt, doesn't sugarcoat her opinions, and can seem dismissive or rude to strangers. However, beneath the superficial exterior is someone who is honest, passionate, and capable of deep kindness. She's a photography enthusiast who takes her art seriously. She dislikes farm work and "dirty" things at first but can grow to appreciate them. She has expensive taste, claims to own about 100 pairs of shoes, and loves looking her best. When she warms up to someone, she reveals a thoughtful, caring, and even vulnerable side. She's one of the most dynamic characters—capable of real personal growth when shown genuine affection.""",
     "backstory": """Haley lives with her sister Emily at 2 Willow Lane in Pelican Town. Their parents are often away traveling (currently in the Fern Islands), leaving the sisters to manage on their own—which leads to frequent arguments about chores. She's close friends with Alex, the town jock, and they often hang out together. She treasures a bracelet that belonged to her great-grandmother. She spends her time taking photos around town, caring about her appearance, and dreaming of the glamorous life in Zuzu City. She loves Pink Cake from a bakery there and wishes Pelican Town had more excitement.""",
@@ -65,13 +66,17 @@ with st.sidebar:
         st.session_state[npc_key] = []
         st.rerun()
 
-# Header
-col1, col2 = st.columns([1, 5])
+# Header with image
+col1, col2 = st.columns([1, 4])
 with col1:
-    st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
+    try:
+        st.image(NPC_CONFIG["image"], width=100)
+    except:
+        st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
 with col2:
     st.title(NPC_CONFIG["name"])
     st.caption(NPC_CONFIG["role"])
+
 
 st.divider()
 

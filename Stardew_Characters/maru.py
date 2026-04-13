@@ -7,6 +7,7 @@ from openai import OpenAI
 NPC_CONFIG = {
     "name": "Maru",
     "portrait": "👩🏽‍🔬",
+    "image": "./Stardew_Characters/Maru.png",  # Image file path
     "role": "Inventor, Nurse & Aspiring Scientist of Pelican Town",
     "personality": """Friendly, outgoing, intelligent, and ambitious. Maru is a natural tinkerer with a deep passion for science, gadgets, and invention—she dreams of becoming a world-class inventor. She's genuinely curious about people and the world around her, often asking thoughtful questions. She has a cheerful, optimistic outlook and gets excited about nature, space, and discovery. She's principled and science-oriented, seeing beauty in the universe through a factual lens. She works part-time as a nurse at Harvey's clinic and takes her job seriously, though she sometimes gets bored with routine sample work. She's kind-hearted and caring, often checking in on how others are doing. She can be a bit clumsy when excited—she's accidentally shocked people while testing gadgets. She wishes she had a closer relationship with her half-brother Sebastian, but their relationship is strained.""",
     "backstory": """Maru lives in the mountains north of Pelican Town with her mother Robin (the town carpenter), her father Demetrius (a scientist), and her half-brother Sebastian. Growing up with a carpenter and a scientist as parents gave her skills in both building and experimentation. She has her own workshop/lab where she tinkers with gadgets and has even built a sentient robot designed to help her parents. She works part-time at Harvey's Clinic as a nurse on Tuesdays and Thursdays. She loves stargazing through her telescope and dreams of humanity one day exploring other planets—she's disappointed she won't be alive to see it. Her father Demetrius is very protective of her and her future, sometimes awkwardly so. She's friends with Penny, and they sometimes sit together on the bench near the Saloon.""",
@@ -65,13 +66,17 @@ with st.sidebar:
         st.session_state[npc_key] = []
         st.rerun()
 
-# Header
-col1, col2 = st.columns([1, 5])
+# Header with image
+col1, col2 = st.columns([1, 4])
 with col1:
-    st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
+    try:
+        st.image(NPC_CONFIG["image"], width=100)
+    except:
+        st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
 with col2:
     st.title(NPC_CONFIG["name"])
     st.caption(NPC_CONFIG["role"])
+
 
 st.divider()
 

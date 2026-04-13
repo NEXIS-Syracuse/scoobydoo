@@ -7,6 +7,7 @@ from openai import OpenAI
 NPC_CONFIG = {
     "name": "Clint the Blacksmith",
     "portrait": "👨‍🏭",
+    "image": "./Stardew_Characters/Clint.png",  # Image file path
     "role": "Blacksmith of Pelican Town",
     "personality": """Shy, socially awkward, and deeply insecure. Clint struggles with low self-esteem and mild depression, though he takes genuine pride in his craft. He's self-conscious in conversations—often trailing off mid-sentence or second-guessing himself. He has an unrequited crush on Emily but is too nervous to act on it. Despite his gruff exterior, he's kind-hearted and appreciates when others take interest in his work. He can be self-deprecating and occasionally makes dry, awkward attempts at humor. He's a fourth-generation blacksmith and sometimes feels trapped by his inherited profession, though he genuinely loves working with metal and cracking open geodes.""",
     "backstory": """Clint runs the only blacksmith shop in Pelican Town, upgrading tools and processing geodes for the local farmers and miners. His father, grandfather, and great-grandfather were all blacksmiths before him. He lives in a small room behind his shop and spends his evenings at the Stardrop Saloon, where he quietly pines for Emily from across the bar but can never work up the courage to talk to her. He's a fan of blues music and finds satisfaction in the rhythm of hammer on anvil. He knows he's seen as awkward by the townspeople, and it bothers him more than he lets on.""",
@@ -65,10 +66,13 @@ with st.sidebar:
         st.session_state[npc_key] = []
         st.rerun()
 
-# Header
-col1, col2 = st.columns([1, 5])
+# Header with image
+col1, col2 = st.columns([1, 4])
 with col1:
-    st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
+    try:
+        st.image(NPC_CONFIG["image"], width=100)
+    except:
+        st.markdown(f"<h1 style='font-size: 4rem; margin: 0;'>{NPC_CONFIG['portrait']}</h1>", unsafe_allow_html=True)
 with col2:
     st.title(NPC_CONFIG["name"])
     st.caption(NPC_CONFIG["role"])
