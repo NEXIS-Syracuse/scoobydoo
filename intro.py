@@ -96,7 +96,6 @@ st.divider()
 # POKEMON
 # ===================
 st.header("⚡ Pokémon")
-st.warning("🚧 These characters are still in development!")
 
 col1, col2 = st.columns(2)
 
