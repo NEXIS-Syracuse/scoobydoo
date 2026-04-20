@@ -56,7 +56,6 @@ st.divider()
 # SUPER SMASH BROS
 # ===================
 st.header("🎮 Super Smash Bros")
-st.warning("🚧 These characters are still in development!")
 
 col1, col2, col3 = st.columns(3)
 
